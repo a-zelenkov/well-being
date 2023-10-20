@@ -1,0 +1,19 @@
+.root {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	width: 90vw;
+	padding: 10px 0;
+	margin: 0 auto;
+}
+
+.cards-list {
+	flex-grow: 1;
+	height: 1px;
+	padding: 10px 0;
+	overflow: auto;
+}
+
+.cards-list > *:not(:last-child) {
+	margin-bottom: 10px;
+}

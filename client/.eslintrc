@@ -29,6 +29,7 @@
 		"no-restricted-syntax": "off",
 		"prefer-destructuring": "off",
 		"no-plusplus": "off",
+		"arrow-body-style": "warn",
 
 		"@typescript-eslint/no-empty-interface": "warn",
 		"@typescript-eslint/no-non-null-assertion": "off"

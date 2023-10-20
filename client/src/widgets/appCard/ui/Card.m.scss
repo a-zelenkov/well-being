@@ -1,0 +1,25 @@
+.root {
+	width: 100%;
+	padding: 16px;
+	box-shadow: var(--default-elevation);
+}
+
+.title-section {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	margin-bottom: 20px;
+
+	.title {
+		width: 100%;
+	}
+}
+
+.title-section > *:not(:last-child) {
+	margin-right: 24px;
+}
+
+.description {
+	width: 100%;
+	padding: 10px 0;
+}

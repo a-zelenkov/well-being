@@ -1,0 +1,9 @@
+.root {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100vw;
+	height: var(--header-width);
+	padding: 0 24px;
+	box-shadow: var(--default-elevation);
+}
