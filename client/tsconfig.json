@@ -1,0 +1,30 @@
+{
+	"compilerOptions": {
+		"outDir": "./dist/",
+		"resolveJsonModule": true,
+		"noImplicitAny": true,
+		"module": "ESNext",
+		"target": "es5",
+		"jsx": "react-jsx",
+		"allowJs": true,
+		"strict": true,
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"baseUrl": "src",
+		"plugins": [
+			{
+				"name": "typescript-plugin-css-modules",
+				"options": {
+					"customMatcher": "\\.m\\.(c|le|sa|sc)ss$"
+				}
+			}
+		]
+	},
+	"include": ["src"],
+	"ts-node": {
+		"compilerOptions": {
+			"module": "CommonJS"
+		}
+	}
+}

@@ -1,0 +1,11 @@
+{ 	
+	"extends": [
+		"stylelint-config-standard", 
+		"stylelint-config-standard-scss", 
+		"stylelint-config-recess-order"
+	],
+	"rules": {
+		"import-notation": "url",
+		"declaration-block-no-redundant-longhand-properties": null
+	}
+}
