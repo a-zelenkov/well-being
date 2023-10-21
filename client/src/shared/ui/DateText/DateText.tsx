@@ -2,9 +2,9 @@ import { Text } from "@gravity-ui/uikit";
 import { FC } from "react";
 
 interface DateTextProps {
-	date: Date;
+	date: string;
 }
 
 export const DateText: FC<DateTextProps> = ({ date }) => (
-	<Text>{`${date.toLocaleDateString()} ${date.toLocaleTimeString()}`}</Text>
+	<Text>{`${new Date(date).toLocaleDateString()} ${new Date(date).toLocaleTimeString()}`}</Text>
 );

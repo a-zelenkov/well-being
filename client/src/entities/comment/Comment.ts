@@ -8,18 +8,16 @@ export enum CommentType {
 
 export interface Comment {
 	id: number;
-	conferenceId: number; // нам, наверно, не нужно
 	text: string;
 	sender: User;
 	type: CommentType;
-	createdAt: Date;
+	createdAt: string;
 }
 
 export const mockComment: Comment = {
 	id: 12,
-	conferenceId: 1,
 	text: "hello world",
 	sender: mockUser,
 	type: CommentType.COMMENT,
-	createdAt: new Date(Date.now()),
+	createdAt: new Date().toJSON(),
 };

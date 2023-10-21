@@ -6,14 +6,12 @@ export enum AttachmentType {
 
 export interface Attachment {
 	id: number;
-	conferenceId: number; // нам, наверно, не нужно
 	content: string;
 	type: AttachmentType;
 }
 
 export const mockAttachment: Attachment = {
 	id: 1,
-	conferenceId: 1,
 	content: "string",
-	type: AttachmentType.LINK
-}
+	type: AttachmentType.LINK,
+};

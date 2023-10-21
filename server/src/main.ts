@@ -4,11 +4,19 @@ import { join } from 'path';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app/app.module';
+import * as cors from 'cors';
 
 async function startup() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     cors: false,
   });
+
+  app.use(
+    cors({
+      credentials: true,
+      origin: true,
+    }),
+  );
 
   const config = app.get(ConfigService);
   const port = config.get<number>('SERVER_PORT');

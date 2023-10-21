@@ -20,7 +20,7 @@ export class AuthMiddleware implements NestMiddleware {
 
     if (!accessToken)
       throw new HttpException(
-        'Рефреш токен отсутсвует',
+        'Рефреш токен отсутствует',
         HttpStatus.UNAUTHORIZED,
       );
 

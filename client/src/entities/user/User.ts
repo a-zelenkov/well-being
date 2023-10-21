@@ -1,5 +1,5 @@
 export const enum UserRole {
-	UNAUTHORIZED = -1,
+	GUEST = -1,
 	USER = 0,
 	MODERATOR = 1,
 	ADMIN = 2,

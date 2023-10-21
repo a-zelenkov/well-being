@@ -10,7 +10,7 @@ export interface UsersState {
 const initialState: UsersState = {
 	profile: {
 		id: -1,
-		role: UserRole.UNAUTHORIZED,
+		role: UserRole.GUEST,
 	},
 	users: [],
 };
@@ -20,7 +20,8 @@ export const auth = createAsyncThunk<boolean, string, ThunkConfig<boolean | Erro
 	async (token, thunkAPI) => {
 		const { extra, rejectWithValue } = thunkAPI;
 		try {
-			return (await extra.api.post<boolean>("/auth", { token })).data;
+			const resp = await extra.api.post<boolean>("/auth", { token });
+			return resp.data;
 		} catch (error) {
 			return rejectWithValue(new Error());
 		}

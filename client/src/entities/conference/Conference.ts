@@ -7,7 +7,7 @@ export interface Conference {
 	id: number;
 	name: string;
 	expert: User;
-	startsAt: Date;
+	startsAt: string;
 	description: string;
 	direction: Direction;
 	attachments: Attachment[];
@@ -19,7 +19,7 @@ export const mockConference: Conference = {
 	id: 1,
 	name: "conferenceName",
 	expert: mockUser,
-	startsAt: new Date(),
+	startsAt: new Date().toJSON(),
 	description: "description",
 	direction: {
 		id: 1,
