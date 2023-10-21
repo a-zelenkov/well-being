@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import {
   BaseEntity as BaseOrmEntity,
   Column,
@@ -11,10 +12,12 @@ export class BaseEntity extends BaseOrmEntity {
   })
   id: number;
 
+  @Exclude()
   @Column({
     type: 'boolean',
     nullable: true,
     name: 'IsDeleted',
+    select: false,
   })
   isDeleted: boolean;
 }

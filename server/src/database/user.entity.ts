@@ -6,10 +6,10 @@ export class User extends BaseEntity {
   @Column({
     type: 'varchar',
     nullable: false,
-    name: 'Gmail',
+    name: 'Email',
     unique: true,
   })
-  gmail: string;
+  email: string;
 
   @Column({
     type: 'varchar',
@@ -25,4 +25,18 @@ export class User extends BaseEntity {
     name: 'Role',
   })
   role: number;
+
+  @Column({
+    type: 'varchar',
+    nullable: false,
+    name: 'Picture',
+  })
+  picture: string;
+
+  @Column({
+    type: 'varchar',
+    nullable: false,
+    name: 'Name',
+  })
+  name: string;
 }

@@ -1,4 +1,5 @@
 import { Button, Card, Tabs, Text, TextArea } from "@gravity-ui/uikit";
+import { CommentType } from "entities/comment/Comment";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "shared/hooks/useAppSelector";
@@ -14,10 +15,10 @@ export const ConferencePage = () => {
 	)!;
 
 	const tabsItems = [
-		{ id: "1", title: "Комментарии" },
-		{ id: "2", title: "Вопросы" },
-		{ id: "3", title: "Предложения" },
-	];
+		{ id: CommentType.QUESTION, title: "Вопросы" },
+		{ id: CommentType.COMMENT, title: "Комментарии" },
+		{ id: CommentType.SUGGESTION, title: "Предложения" },
+	].map(tab => ({ ...tab, id: tab.id.toString() }));
 
 	const [activeTab, setActiveTab] = useState<string>("1");
 

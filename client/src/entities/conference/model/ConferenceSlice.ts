@@ -6,6 +6,10 @@ for (let i = 0; i < 10; i++) {
 	temp.push({ ...mockConference, id: i });
 }
 
+export interface ConferencesState {
+	conferences: Conference[];
+}
+
 const initialState: ConferencesState = {
 	conferences: temp,
 };
@@ -18,7 +22,3 @@ const conferencesSlice = createSlice({
 
 export const conferencesReducer = conferencesSlice.reducer;
 export const conferencesAction = conferencesSlice.actions;
-
-export interface ConferencesState {
-	conferences: Conference[];
-}
