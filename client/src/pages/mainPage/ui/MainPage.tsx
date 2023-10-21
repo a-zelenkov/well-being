@@ -1,17 +1,17 @@
 import classNames from "classnames";
-import { useState } from "react";
-import { AppCard } from "widgets/appCard";
+import { useAppSelector } from "shared/hooks/useAppSelector";
+import { ConferenceCard } from "widgets/conferenceCard";
 import cls from "./MainPage.m.scss";
 
 export const MainPage = () => {
-	const [fakeCards, _] = useState(["Name #1", "name #2", "name #3"]);
+	const conferences = useAppSelector(state => state.conferencesState.conferences);
 	return (
 		<div className={classNames(cls.root)}>
 			<div className={classNames(cls["cards-list"])}>
-				{fakeCards.map(el => (
-					<AppCard
-						key={el}
-						card={el}
+				{conferences.map(conference => (
+					<ConferenceCard
+						key={conference.id}
+						conference={conference}
 					/>
 				))}
 			</div>

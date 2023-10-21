@@ -10,3 +10,10 @@ export interface Attachment {
 	content: string;
 	type: AttachmentType;
 }
+
+export const mockAttachment: Attachment = {
+	id: 1,
+	conferenceId: 1,
+	content: "string",
+	type: AttachmentType.LINK
+}

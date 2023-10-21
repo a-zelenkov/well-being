@@ -1,10 +1,13 @@
 import { configureStore, Reducer, ReducersMapObject, ThunkMiddleware } from "@reduxjs/toolkit";
 import { EnhancedStore, ToolkitStore } from "@reduxjs/toolkit/dist/configureStore";
 import { AxiosInstance } from "axios";
+import { conferencesReducer, ConferencesState } from "entities/conference/model/ConferenceSlice";
 import { $api } from "shared/api/$api";
 import { createReducerManager, ReducerManager } from "./managers/reducerManager";
 
-const rootReducer: ReducersMapObject<StateSchema> = {};
+const rootReducer: ReducersMapObject<StateSchema> = {
+	conferencesState: conferencesReducer,
+};
 
 export const createReduxStore = (initState?: StateSchema): ToolkitStore => {
 	const reducerManager = createReducerManager<StateSchema>(rootReducer);
@@ -28,7 +31,9 @@ export const createReduxStore = (initState?: StateSchema): ToolkitStore => {
 	return store;
 };
 
-export interface StateSchema {}
+export interface StateSchema {
+	conferencesState: ConferencesState;
+}
 
 export interface StoreWithReducerManager extends EnhancedStore<StateSchema> {
 	reducerManager: ReducerManager<StateSchema>;

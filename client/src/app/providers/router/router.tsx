@@ -1,10 +1,11 @@
 import { App } from "app/App";
+import { ConferencePage } from "pages/conferencePage";
 import { MainPage } from "pages/mainPage";
 import { createBrowserRouter, RouteObject } from "react-router-dom";
 
 export const routerPaths = {
 	root: "/",
-	main: "main",
+	conference: "conference",
 };
 
 const routerConfig: RouteObject[] = [
@@ -16,6 +17,10 @@ const routerConfig: RouteObject[] = [
 			{
 				path: routerPaths.root,
 				element: <MainPage />,
+			},
+			{
+				path: `${routerPaths.conference}/:id`,
+				element: <ConferencePage />,
 			},
 		],
 	},

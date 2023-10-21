@@ -11,3 +11,10 @@ export interface User {
 	info: string;
 	// это не всё
 }
+
+export const mockUser: User = {
+	id: 1,
+	mail: "mail@mail.mail",
+	role: UserRole.ADMIN,
+	info: "info"
+}
