@@ -1,4 +1,5 @@
-export enum UserRole {
+export const enum UserRole {
+	UNAUTHORIZED = -1,
 	USER = 0,
 	MODERATOR = 1,
 	ADMIN = 2,
@@ -6,15 +7,16 @@ export enum UserRole {
 
 export interface User {
 	id: number;
-	mail: string;
+	mail?: string;
 	role: UserRole;
-	info: string;
-	// это не всё
+	info?: string;
+	name?: string;
+	picture?: string; // url
 }
 
 export const mockUser: User = {
 	id: 1,
 	mail: "mail@mail.mail",
 	role: UserRole.ADMIN,
-	info: "info"
-}
+	info: "info",
+};
