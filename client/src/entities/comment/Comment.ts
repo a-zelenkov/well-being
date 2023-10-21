@@ -1,4 +1,4 @@
-import { User } from "entities/user/User";
+import { mockUser, User } from "entities/user/User";
 
 export enum CommentType {
 	QUESTION = 0,
@@ -14,3 +14,12 @@ export interface Comment {
 	type: CommentType;
 	createdAt: Date;
 }
+
+export const mockComment: Comment = {
+	id: 12,
+	conferenceId: 1,
+	text: "hello world",
+	sender: mockUser,
+	type: CommentType.COMMENT,
+	createdAt: new Date(Date.now()),
+};

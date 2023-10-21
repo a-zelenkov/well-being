@@ -1,6 +1,7 @@
 import { Attachment, mockAttachment } from "entities/attachment/Attachment";
+import { Comment, mockComment } from "entities/comment/Comment";
+import { Direction } from "entities/direction/Direction";
 import { User, mockUser } from "entities/user/User";
-import { Direction } from "readline";
 
 export interface Conference {
 	id: number;
@@ -18,10 +19,13 @@ export const mockConference: Conference = {
 	id: 1,
 	name: "conferenceName",
 	expert: mockUser,
-	startsAt: new Date(Date.now()),
+	startsAt: new Date(),
 	description: "description",
-	direction: 1,
+	direction: {
+		id: 1,
+		name: "mock",
+	},
 	attachments: [mockAttachment],
-	comments: [],
+	comments: [mockComment],
 	audience: [],
-}
+};
