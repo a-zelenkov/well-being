@@ -30,8 +30,10 @@
 		"prefer-destructuring": "off",
 		"no-plusplus": "off",
 		"arrow-body-style": "warn",
+		"no-shadow": "off",
 
 		"@typescript-eslint/no-empty-interface": "warn",
-		"@typescript-eslint/no-non-null-assertion": "off"
+		"@typescript-eslint/no-non-null-assertion": "off",
+		"@typescript-eslint/no-shadow": ["error"]
 	}
 }
