@@ -28,13 +28,12 @@ export class AuthMiddleware implements NestMiddleware {
     ) as JwtPayload;
 
     const user = await this.userService.getByEmail(updatedJwtPayload.email);
-
-    res.cookie('Token', accessToken, {
-      httpOnly: true,
-      // secure: true,
-      expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
-    });
-
+    if (!user) {
+      throw new HttpException(
+        'Такого пользователя не существует',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
     req.user = { ...user, ...updatedJwtPayload };
 
     await this.userService.updateUser(new UpdateUserDto(req.user));
