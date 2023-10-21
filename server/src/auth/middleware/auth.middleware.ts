@@ -15,6 +15,12 @@ export class AuthMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
     const accessToken = req?.get('cookie')?.split('JWT_Refresh_Token=')[1];
 
+    if (!accessToken)
+      throw new HttpException(
+        'Рефреш токен отсутсвует',
+        HttpStatus.UNAUTHORIZED,
+      );
+
     const base64Payload = accessToken.split('.')[1];
     const payloadBuffer = Buffer.from(base64Payload, 'base64');
     const updatedJwtPayload: JwtPayload = JSON.parse(
@@ -22,11 +28,13 @@ export class AuthMiddleware implements NestMiddleware {
     ) as JwtPayload;
 
     const user = await this.userService.getByEmail(updatedJwtPayload.email);
-    if (!accessToken)
-      throw new HttpException(
-        'Рефреш токен отсутсвует',
-        HttpStatus.UNAUTHORIZED,
-      );
+
+    res.cookie('Token', accessToken, {
+      httpOnly: true,
+      // secure: true,
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+    });
+
     req.user = { ...user, ...updatedJwtPayload };
 
     await this.userService.updateUser(new UpdateUserDto(req.user));
