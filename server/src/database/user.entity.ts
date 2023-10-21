@@ -28,14 +28,14 @@ export class User extends BaseEntity {
 
   @Column({
     type: 'varchar',
-    nullable: false,
+    nullable: true,
     name: 'Picture',
   })
   picture: string;
 
   @Column({
     type: 'varchar',
-    nullable: false,
+    nullable: true,
     name: 'Name',
   })
   name: string;

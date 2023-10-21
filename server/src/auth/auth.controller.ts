@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -25,12 +26,12 @@ export class AuthController {
 
       const user = await this.userService.getByEmail(payload.email);
       if (!user) {
-        res.purge(res).send({
-          auth: false,
+        this.purge(res).send({
+          msg: false,
         });
       } else {
         this.setCookie(res, data.token).send({
-          auth: true,
+          msg: true,
           user: user,
         });
       }
@@ -38,6 +39,14 @@ export class AuthController {
       return { error: ex };
     }
   }
+
+  @Get('/logout')
+  logout(@Res() res) {
+    this.purge(res).send({
+      msg: true,
+    });
+  }
+
   setCookie(res: Response, token: string) {
     return res.cookie('Token', token, {
       httpOnly: true,
@@ -47,8 +56,9 @@ export class AuthController {
   }
 
   purge(res: Response) {
-    res.cookie('Token', '', {
+    return res.cookie('Token', '', {
       httpOnly: true,
+      // secure: true,
       expires: new Date(0),
     });
   }

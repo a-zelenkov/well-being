@@ -15,7 +15,7 @@ export class Comment extends BaseEntity {
     nullable: false,
     name: 'Text',
   })
-  text: number;
+  text: string;
 
   @Column({
     type: 'int',

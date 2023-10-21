@@ -14,8 +14,8 @@ export class ConferenceService {
     private readonly conferencesRepository: Repository<Conference>,
   ) {}
 
-  async getAll(): Promise<Conference[]> {
-    return this.conferencesRepository.find();
+  async getAll() {
+    return await this.conferencesRepository.find();
   }
 
   async getById(id: number) {
@@ -32,23 +32,23 @@ export class ConferenceService {
     return conferences;
   }
 
-  async createUser(details: CreateConferenceDto) {
+  async create(details: CreateConferenceDto) {
     try {
-      const user = this.conferencesRepository.create({
+      const conference = this.conferencesRepository.create({
         ...details,
       });
-      return await this.conferencesRepository.save(user);
+      return await this.conferencesRepository.save(conference);
     } catch (error) {
       throw new Error(`Пользователь не был создан. Ошибка ${String(error)}`);
     }
   }
 
-  async updateUser(details: UpdateConferenceDto) {
+  async update(details: UpdateConferenceDto) {
     try {
-      const user = await this.getById(details.id);
+      const conference = await this.getById(details.id);
 
       return await this.conferencesRepository.save({
-        ...user,
+        ...conference,
         ...details,
       });
     } catch (error) {
@@ -56,11 +56,11 @@ export class ConferenceService {
     }
   }
 
-  async deleteUser(id: number) {
+  async delete(id: number) {
     try {
-      const user = await this.getById(id);
-      user.isDeleted = true;
-      return await this.conferencesRepository.save(user);
+      const conference = await this.getById(id);
+      conference.isDeleted = true;
+      return await this.conferencesRepository.save(conference);
     } catch (error) {
       throw new Error(`Пользователь не был удален. Ошибка ${String(error)}`);
     }
