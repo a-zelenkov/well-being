@@ -56,15 +56,16 @@ export const fetchUsers = createAsyncThunk<User[], undefined, ThunkConfig<User[]
 const usersSlice = createSlice({
 	name: "users",
 	initialState,
-	reducers: {
-		setProfile(state, { payload }: PayloadAction<User>) {
-			Object.assign(state, payload);
-		},
-		getUsers(state, { payload }: PayloadAction<User[]>) {
-			Object.assign(state.users, payload);
-		},
+	reducers: {},
+	extraReducers(builder) {
+		builder.addCase(fetchProfile.fulfilled, (state, { payload }: PayloadAction<User>) => {
+			state.profile = payload;
+		});
+		builder.addCase(fetchUsers.fulfilled, (state, { payload }: PayloadAction<User[]>) => {
+			state.users = payload;
+		});
 	},
 });
 
 export const usersReducer = usersSlice.reducer;
-export const { getUsers, setProfile } = usersSlice.actions;
+export const usersActions = usersSlice.actions;
