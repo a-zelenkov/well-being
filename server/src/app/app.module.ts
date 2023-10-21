@@ -1,4 +1,9 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
@@ -6,9 +11,10 @@ import { AppService } from './app.service';
 
 import { configModule } from '../configure.root';
 import { ConfigService } from '@nestjs/config/dist/config.service';
-import { GoogleStrategy } from 'src/auth/strategy/google.strategy';
 import { UserModule } from 'src/user/user.module';
-// import { User } from 'src/database/user.entity';
+import { ConferenceModule } from 'src/conference/conference.module';
+import { AuthModule } from 'src/auth/auth.module';
+import { AuthMiddleware } from 'src/auth/middleware/auth.middleware';
 
 @Module({
   imports: [
@@ -34,8 +40,17 @@ import { UserModule } from 'src/user/user.module';
       }),
     }),
     UserModule,
+    ConferenceModule,
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService, GoogleStrategy],
+  providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .exclude({ path: '.*', method: RequestMethod.GET })
+      .forRoutes('*');
+  }
+}

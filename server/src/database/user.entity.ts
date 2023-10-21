@@ -6,10 +6,10 @@ export class User extends BaseEntity {
   @Column({
     type: 'varchar',
     nullable: false,
-    name: 'Gmail',
+    name: 'Email',
     unique: true,
   })
-  gmail: string;
+  email: string;
 
   @Column({
     type: 'varchar',
