@@ -144,7 +144,7 @@ export class ConferenceController {
     }
   }
 
-  @Post()
+  @Post('/subscribe')
   async subcribe(@Res() res, @Body() conferenceId: number) {
     try {
       await this.audienceService.subsribeUser(res.user.id, conferenceId);
@@ -154,7 +154,7 @@ export class ConferenceController {
     }
   }
 
-  @Delete()
+  @Delete('/unsubscribe')
   async unSubscribe(@Res() res, @Body() conferenceId: number) {
     try {
       await this.audienceService.unSubsribeUser(res.user.id, conferenceId);
@@ -164,8 +164,8 @@ export class ConferenceController {
     }
   }
 
-  @Get()
-  async getSubcribesConerence(@Res() res, @Body() conferenceId: number) {
+  @Get('/getAudience')
+  async getSubcribesConference(@Res() res, @Body() conferenceId: number) {
     try {
       return await this.audienceService.getSubscribesConference(conferenceId);
     } catch (ex) {
@@ -173,7 +173,7 @@ export class ConferenceController {
     }
   }
 
-  @Get()
+  @Get('/getByUser')
   async getConferencesUser(@Res() res) {
     try {
       return await this.audienceService.getSubscribesConference(res.user.id);
