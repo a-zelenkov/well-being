@@ -6,7 +6,9 @@ import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app/app.module';
 
 async function startup() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    cors: false,
+  });
 
   const config = app.get(ConfigService);
   const port = config.get<number>('SERVER_PORT');

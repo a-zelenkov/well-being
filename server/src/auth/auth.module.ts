@@ -7,5 +7,6 @@ import { AuthController } from './auth.controller';
   controllers: [AuthController],
   imports: [UserModule],
   providers: [AuthService],
+  exports: [AuthService],
 })
 export class AuthModule {}

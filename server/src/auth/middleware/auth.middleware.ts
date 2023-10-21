@@ -5,13 +5,16 @@ import {
   NestMiddleware,
 } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { JwtPayload } from './jwt-payload.interface';
 import { UserService } from 'src/user/user.service';
-import { UpdateUserDto } from 'src/user/user.dto';
+import { UpdateUserDto } from 'src/dto/user.dto';
+import { AuthService } from '../auth.service';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly authService: AuthService,
+  ) {}
   async use(req: Request, res: Response, next: NextFunction) {
     const accessToken = req?.get('cookie')?.split('Token=')[1];
 
@@ -21,11 +24,7 @@ export class AuthMiddleware implements NestMiddleware {
         HttpStatus.UNAUTHORIZED,
       );
 
-    const base64Payload = accessToken.split('.')[1];
-    const payloadBuffer = Buffer.from(base64Payload, 'base64');
-    const updatedJwtPayload: JwtPayload = JSON.parse(
-      payloadBuffer.toString(),
-    ) as JwtPayload;
+    const updatedJwtPayload = this.authService.decodeToken(accessToken);
 
     const user = await this.userService.getByEmail(updatedJwtPayload.email);
     if (!user) {
@@ -35,8 +34,8 @@ export class AuthMiddleware implements NestMiddleware {
       );
     }
     req.user = { ...user, ...updatedJwtPayload };
-    console.log('ZAVIS');
-    await this.userService.updateUser(new UpdateUserDto(req.user));
+
+    await this.userService.update(new UpdateUserDto(req.user));
     next();
   }
 }

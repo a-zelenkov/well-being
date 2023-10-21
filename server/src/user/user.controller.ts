@@ -9,7 +9,7 @@ import {
   Req,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto, OutputUserDto, UpdateUserDto } from './user.dto';
+import { CreateUserDto, OutputUserDto, UpdateUserDto } from '../dto/user.dto';
 
 @Controller('users')
 export class UserController {
@@ -34,7 +34,7 @@ export class UserController {
   @Put()
   async update(@Body() userModel: UpdateUserDto) {
     try {
-      return new OutputUserDto(await this.userService.updateUser(userModel));
+      return new OutputUserDto(await this.userService.update(userModel));
     } catch (Ex) {
       return { error: Ex };
     }
@@ -43,7 +43,7 @@ export class UserController {
   @Post()
   async create(@Body() userModel: CreateUserDto) {
     try {
-      return new OutputUserDto(await this.userService.createUser(userModel));
+      return new OutputUserDto(await this.userService.create(userModel));
     } catch (Ex) {
       return { error: Ex };
     }
@@ -52,7 +52,7 @@ export class UserController {
   @Delete(':id')
   async delete(@Param('id') id: number) {
     try {
-      return new OutputUserDto(await this.userService.deleteUser(id));
+      return new OutputUserDto(await this.userService.delete(id));
     } catch (Ex) {
       return { error: Ex };
     }
