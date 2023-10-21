@@ -12,7 +12,7 @@ export class AttachmentService {
   ) {}
   async getByConferenceId(id: number) {
     const comments = await this.attachmentsRepository.find({
-      where: { conferenceId: id },
+      where: { conferenceId: id, isDeleted: false },
     });
     return comments;
   }

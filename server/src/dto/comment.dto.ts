@@ -1,5 +1,29 @@
 import { IsDate, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { Comment } from 'src/database/comment.entity';
+/**
+ * Модель DTO для создания данных
+ */
+export class CreateCommentDto {
+  @IsNumber()
+  @IsNotEmpty()
+  senderId: number;
+
+  @IsString()
+  @IsNotEmpty()
+  text: string;
+
+  @IsDate()
+  @IsNotEmpty()
+  createdAt: Date;
+
+  @IsNumber()
+  @IsNotEmpty()
+  type: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  conferenceId: number;
+}
 
 export class OutputCommentDto {
   constructor(comment: Comment) {
