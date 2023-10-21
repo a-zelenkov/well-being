@@ -9,7 +9,10 @@ export const MainPage = () => {
 		<div className={classNames(cls.root)}>
 			<div className={classNames(cls["cards-list"])}>
 				{fakeCards.map(el => (
-					<AppCard card={el} />
+					<AppCard
+						key={el}
+						card={el}
+					/>
 				))}
 			</div>
 		</div>
