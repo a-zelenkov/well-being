@@ -4,6 +4,7 @@
 		"import-notation": "url",
 		"declaration-block-no-redundant-longhand-properties": null,
 		"alpha-value-notation": null,
-		"color-function-notation": null
+		"color-function-notation": null,
+		"no-descending-specificity": null
 	}
 }

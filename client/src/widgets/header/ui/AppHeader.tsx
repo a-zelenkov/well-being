@@ -1,4 +1,5 @@
 import { Persona } from "@gravity-ui/uikit";
+import { GoogleLogin } from "@react-oauth/google";
 import classNames from "classnames";
 import cls from "./AppHeader.m.scss";
 
@@ -8,9 +9,13 @@ export const AppHeader = () => (
 			type="person"
 			text="fakemail@gmail.com"
 		/>
-		<Persona
-			type="empty"
-			text="What is it?"
+		<GoogleLogin
+			onSuccess={credentialResponse => {
+				console.log(credentialResponse);
+			}}
+			onError={() => {
+				console.log("Login Failed");
+			}}
 		/>
 	</div>
 );
