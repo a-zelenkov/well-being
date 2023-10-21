@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/database/user.entity';
 import { Repository } from 'typeorm';
-import { CreateUserDto } from './user.dto';
+import { CreateUserDto, UpdateUserDto } from './user.dto';
 
 @Injectable()
 export class UserService {
@@ -37,6 +37,19 @@ export class UserService {
       return await this.usersRepository.save(user);
     } catch (error) {
       throw new Error(`Пользователь не был создан. Ошибка ${String(error)}`);
+    }
+  }
+
+  async updateUser(details: UpdateUserDto) {
+    try {
+      const user = await this.getByEmail(details.email);
+
+      return await this.usersRepository.save({
+        ...user,
+        ...details,
+      });
+    } catch (error) {
+      throw new Error(`Пользователь не был обновлен. Ошибка ${String(error)}`);
     }
   }
 

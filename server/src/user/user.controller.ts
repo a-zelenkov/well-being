@@ -5,10 +5,11 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Req,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './user.dto';
+import { CreateUserDto, OutputUserDto, UpdateUserDto } from './user.dto';
 
 @Controller('users')
 export class UserController {
@@ -16,17 +17,44 @@ export class UserController {
 
   @Get()
   async getProfile(@Req() req) {
-    // Tremba todo: Сделать нормальный вывод пользователя. В данный момент выводится вся инфа из бд
-    return req.user;
+    try {
+      return this.userService.getById(req.user.id);
+    } catch (ex) {
+      return { error: ex };
+    }
+  }
+
+  @Get('getAll')
+  async getAll() {
+    return (await this.userService.getAll()).map(
+      (user) => new OutputUserDto(user),
+    );
+  }
+
+  @Put()
+  async update(@Body() userModel: UpdateUserDto) {
+    try {
+      return new OutputUserDto(await this.userService.updateUser(userModel));
+    } catch (Ex) {
+      return { error: Ex };
+    }
   }
 
   @Post()
   async create(@Body() userModel: CreateUserDto) {
-    return this.userService.createUser(userModel);
+    try {
+      return new OutputUserDto(await this.userService.createUser(userModel));
+    } catch (Ex) {
+      return { error: Ex };
+    }
   }
 
   @Delete(':id')
   async delete(@Param('id') id: number) {
-    return this.userService.deleteUser(id);
+    try {
+      return new OutputUserDto(await this.userService.deleteUser(id));
+    } catch (Ex) {
+      return { error: Ex };
+    }
   }
 }

@@ -7,12 +7,12 @@ import {
 import { Request, Response, NextFunction } from 'express';
 import { JwtPayload } from './jwt-payload.interface';
 import { UserService } from 'src/user/user.service';
+import { UpdateUserDto } from 'src/user/user.dto';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
   constructor(private readonly userService: UserService) {}
   async use(req: Request, res: Response, next: NextFunction) {
-    console.log('Request...');
     const accessToken = req?.get('cookie')?.split('JWT_Refresh_Token=')[1];
 
     const base64Payload = accessToken.split('.')[1];
@@ -21,16 +21,15 @@ export class AuthMiddleware implements NestMiddleware {
       payloadBuffer.toString(),
     ) as JwtPayload;
 
-    console.log(updatedJwtPayload);
-
     const user = await this.userService.getByEmail(updatedJwtPayload.email);
-    console.log(user);
     if (!accessToken)
       throw new HttpException(
         'Рефреш токен отсутсвует',
         HttpStatus.UNAUTHORIZED,
       );
-    req.user = user;
+    req.user = { ...user, ...updatedJwtPayload };
+
+    await this.userService.updateUser(new UpdateUserDto(req.user));
     next();
   }
 }

@@ -25,4 +25,18 @@ export class User extends BaseEntity {
     name: 'Role',
   })
   role: number;
+
+  @Column({
+    type: 'varchar',
+    nullable: false,
+    name: 'Picture',
+  })
+  picture: string;
+
+  @Column({
+    type: 'varchar',
+    nullable: false,
+    name: 'Name',
+  })
+  name: string;
 }
