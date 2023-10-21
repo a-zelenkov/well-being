@@ -1,4 +1,5 @@
 import { Attachment, mockAttachment } from "entities/attachment/Attachment";
+import { Comment, mockComment } from "entities/comment/Comment";
 import { User, mockUser } from "entities/user/User";
 import { Direction } from "readline";
 
@@ -22,6 +23,6 @@ export const mockConference: Conference = {
 	description: "description",
 	direction: 1,
 	attachments: [mockAttachment],
-	comments: [],
+	comments: [mockComment],
 	audience: [],
-}
+};
