@@ -13,7 +13,7 @@ import { UpdateUserDto } from 'src/user/user.dto';
 export class AuthMiddleware implements NestMiddleware {
   constructor(private readonly userService: UserService) {}
   async use(req: Request, res: Response, next: NextFunction) {
-    const accessToken = req?.get('cookie')?.split('JWT_Refresh_Token=')[1];
+    const accessToken = req?.get('cookie')?.split('Token=')[1];
 
     if (!accessToken)
       throw new HttpException(
@@ -35,7 +35,7 @@ export class AuthMiddleware implements NestMiddleware {
       );
     }
     req.user = { ...user, ...updatedJwtPayload };
-
+    console.log('ZAVIS');
     await this.userService.updateUser(new UpdateUserDto(req.user));
     next();
   }
