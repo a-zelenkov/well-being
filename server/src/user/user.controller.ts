@@ -18,7 +18,7 @@ export class UserController {
   @Get()
   async getProfile(@Req() req) {
     try {
-      return this.userService.getById(req.user.id);
+      return new OutputUserDto(await this.userService.getById(req.user.id));
     } catch (ex) {
       return { error: ex };
     }
