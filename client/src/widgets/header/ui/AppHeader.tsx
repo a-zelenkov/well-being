@@ -2,7 +2,7 @@ import { Persona } from "@gravity-ui/uikit";
 import { GoogleLogin } from "@react-oauth/google";
 import classNames from "classnames";
 import { getUserProfile } from "entities/user/model/selectors";
-import { auth, fetchProfile } from "entities/user/model/UserSlice";
+import { auth, fetchProfile, logout } from "entities/user/model/UserSlice";
 import { UserRole } from "entities/user/User";
 import { useEffect } from "react";
 import { useAppDispatch } from "shared/hooks/useAppDispatch";
@@ -20,17 +20,22 @@ export const AppHeader = () => {
 
 	return (
 		<div className={classNames(cls.root)}>
-			<Persona
-				type="person"
-				text="fakemail@gmail.com"
-			/>
-			{user.role === UserRole.GUEST && (
+			{user.role === UserRole.GUEST ? (
 				<GoogleLogin
 					onSuccess={res => {
 						dispatch(auth(res.credential!));
 					}}
 					onError={() => {
 						console.log("Login Failed");
+					}}
+				/>
+			) : (
+				<Persona
+					type="person"
+					text={user.email}
+					image={user.picture}
+					onClick={() => {
+						dispatch(logout());
 					}}
 				/>
 			)}
