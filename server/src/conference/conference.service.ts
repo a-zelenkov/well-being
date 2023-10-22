@@ -16,13 +16,13 @@ export class ConferenceService {
 
   async getAll() {
     return await this.conferencesRepository.find({
-      where: { isDeleted: false || null },
+      where: { isDeleted: !true },
     });
   }
 
   async getById(id: number) {
     const conference = await this.conferencesRepository.findOne({
-      where: { id, isDeleted: false || null },
+      where: { id, isDeleted: !true },
     });
     return conference;
   }
@@ -31,7 +31,7 @@ export class ConferenceService {
     const conferences = await this.conferencesRepository.find({
       where: {
         startsAt: Between(startsAt, new Date()),
-        isDeleted: false || null,
+        isDeleted: !true,
       },
     });
     return conferences;

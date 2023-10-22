@@ -56,6 +56,18 @@ export class UserService {
     }
   }
 
+  async updateById(userId: number, details: UpdateUserDto) {
+    try {
+      const user = await this.getById(userId);
+      return await this.usersRepository.save({
+        ...user,
+        ...details,
+      });
+    } catch (error) {
+      throw new Error(`Пользователь не был обновлен. Ошибка ${String(error)}`);
+    }
+  }
+
   async delete(id: number) {
     try {
       const user = await this.getById(id);

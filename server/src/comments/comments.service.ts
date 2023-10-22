@@ -12,14 +12,14 @@ export class CommentsService {
   ) {}
   async getByConferenceId(id: number) {
     const comments = await this.commentsRepository.find({
-      where: { conferenceId: id, isDeleted: false || null },
+      where: { conferenceId: id, isDeleted: !true },
     });
     return comments;
   }
 
   async getById(id: number) {
     const comments = await this.commentsRepository.findOne({
-      where: { id, isDeleted: false || null },
+      where: { id, isDeleted: !true },
     });
     return comments;
   }

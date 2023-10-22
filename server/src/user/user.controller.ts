@@ -31,6 +31,17 @@ export class UserController {
     );
   }
 
+  @Put(':id')
+  async updateById(@Param('id') id: number, @Body() userModel: UpdateUserDto) {
+    try {
+      return new OutputUserDto(
+        await this.userService.updateById(id, userModel),
+      );
+    } catch (Ex) {
+      return { error: Ex };
+    }
+  }
+
   @Put()
   async update(@Req() req, @Body() userModel: UpdateUserDto) {
     try {

@@ -4,14 +4,15 @@ import { Attachment } from 'src/database/attachment.entity';
  * Модель DTO для создания данных
  */
 export class CreateAttachmentDto {
-  constructor(attachment: Attachment) {
-    this.id = attachment.id;
-    this.conferenceId = attachment.conferenceId;
-    this.content = attachment.content;
+  constructor() {}
+
+  static from(attachment: Attachment) {
+    const obj = new CreateAttachmentDto();
+    obj.conferenceId = attachment.conferenceId;
+    obj.content = attachment.content;
+    obj.type = attachment.type;
+    return obj;
   }
-  @IsNumber()
-  @IsNotEmpty()
-  id: number;
 
   @IsNumber()
   @IsNotEmpty()
