@@ -52,7 +52,11 @@ export class UserController {
   @Delete(':id')
   async delete(@Param('id') id: number) {
     try {
-      return new OutputUserDto(await this.userService.delete(id));
+      await this.userService.delete(id);
+
+      return {
+        msg: true,
+      };
     } catch (Ex) {
       return { error: Ex };
     }
