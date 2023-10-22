@@ -16,9 +16,9 @@ export const AvatarWithName: FC<AvatarWithNameProps> = props => {
 		<div className={classNames(cls.root, className)}>
 			<Avatar
 				size="l"
-				imgSrc="https://i.natgeofe.com/k/ad9b542e-c4a0-4d0b-9147-da17121b4c98/MOmeow1_square.png"
+				imgSrc={user.picture}
 			/>
-			<Text>{user.info}</Text>
+			<Text>{user.name}</Text>
 		</div>
 	);
 };

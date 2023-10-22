@@ -1,4 +1,5 @@
 import { App } from "app/App";
+import { AdminPage } from "pages/adminPage";
 import { ConferencePage } from "pages/conferencePage";
 import { MainPage } from "pages/mainPage";
 import { createBrowserRouter, RouteObject } from "react-router-dom";
@@ -6,6 +7,7 @@ import { createBrowserRouter, RouteObject } from "react-router-dom";
 export const routerPaths = {
 	root: "/",
 	conference: "conference",
+	admin: "admin",
 };
 
 const routerConfig: RouteObject[] = [
@@ -21,6 +23,10 @@ const routerConfig: RouteObject[] = [
 			{
 				path: `${routerPaths.conference}/:id`,
 				element: <ConferencePage />,
+			},
+			{
+				path: routerPaths.admin,
+				element: <AdminPage />,
 			},
 		],
 	},

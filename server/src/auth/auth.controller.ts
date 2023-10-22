@@ -30,10 +30,7 @@ export class AuthController {
           msg: false,
         });
       } else {
-        this.setCookie(res, data.token).send({
-          msg: true,
-          user: user,
-        });
+        this.setCookie(res, data.token).send(user);
       }
     } catch (ex) {
       return { error: ex };
