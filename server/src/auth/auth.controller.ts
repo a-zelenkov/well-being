@@ -24,6 +24,7 @@ export class AuthController {
     try {
       const payload = this.authService.decodeToken(data.token);
 
+      console.log(payload);
       const user = await this.userService.getByEmail(payload.email);
       if (!user) {
         this.purge(res).send({

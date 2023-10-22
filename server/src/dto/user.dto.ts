@@ -21,7 +21,7 @@ export class UpdateUserDto {
   constructor(user: any) {
     this.email = user.email;
     this.info = user.info;
-    this.role = user.role;
+    // this.role = user.role;
     this.picture = user.picture;
     this.name = user.name;
   }
@@ -30,14 +30,17 @@ export class UpdateUserDto {
   info: string;
 
   @IsString()
+  @IsNotEmpty()
   email: string;
+
   @IsString()
   picture: string;
+
   @IsString()
   name: string;
 
-  @IsNumber()
-  role: number;
+  // @IsNumber()
+  // role: number;
 }
 
 /**

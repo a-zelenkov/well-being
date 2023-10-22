@@ -12,19 +12,19 @@ export class UserService {
   ) {}
 
   async getAll(): Promise<User[]> {
-    return this.usersRepository.find({ where: { isDeleted: false } });
+    return this.usersRepository.find({ where: { isDeleted: false || null } });
   }
 
   async getById(id: number) {
     const user = await this.usersRepository.findOne({
-      where: { id, isDeleted: false },
+      where: { id, isDeleted: false || null },
     });
     return user;
   }
 
   async getByEmail(email: string) {
     const user = await this.usersRepository.findOne({
-      where: { email, isDeleted: false },
+      where: { email, isDeleted: false || null },
     });
     return user;
   }

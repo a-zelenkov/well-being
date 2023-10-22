@@ -25,6 +25,16 @@ export class CreateCommentDto {
   conferenceId: number;
 }
 
+export class UpdateCommentDto {
+  @IsNumber()
+  @IsNotEmpty()
+  id: number;
+
+  @IsString()
+  @IsNotEmpty()
+  text: string;
+}
+
 export class OutputCommentDto {
   constructor(comment: Comment) {
     this.id = comment.id;

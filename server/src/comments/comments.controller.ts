@@ -7,7 +7,11 @@ import {
   Put,
   Res,
 } from '@nestjs/common';
-import { CreateCommentDto, OutputCommentDto } from 'src/dto/comment.dto';
+import {
+  CreateCommentDto,
+  OutputCommentDto,
+  UpdateCommentDto,
+} from 'src/dto/comment.dto';
 import { CommentsService } from './comments.service';
 
 @Controller('comments')
@@ -29,8 +33,7 @@ export class CommentsController {
   @Put()
   async update(@Body() details: UpdateCommentDto) {
     try {
-      details.senderId = res.user.id;
-      const comment = await this.commentService.create(details);
+      const comment = await this.commentService.update(details);
 
       return new OutputCommentDto(comment);
     } catch (ex) {

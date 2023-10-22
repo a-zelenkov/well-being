@@ -16,20 +16,23 @@ export class ConferenceService {
 
   async getAll() {
     return await this.conferencesRepository.find({
-      where: { isDeleted: false },
+      where: { isDeleted: false || null },
     });
   }
 
   async getById(id: number) {
     const conference = await this.conferencesRepository.findOne({
-      where: { id, isDeleted: false },
+      where: { id, isDeleted: false || null },
     });
     return conference;
   }
 
   async get(startsAt: Date) {
     const conferences = await this.conferencesRepository.find({
-      where: { startsAt: Between(startsAt, new Date()), isDeleted: false },
+      where: {
+        startsAt: Between(startsAt, new Date()),
+        isDeleted: false || null,
+      },
     });
     return conferences;
   }

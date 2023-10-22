@@ -6,9 +6,6 @@ import {
 } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-
 import { configModule } from '../configure.root';
 import { ConfigService } from '@nestjs/config/dist/config.service';
 import { UserModule } from 'src/user/user.module';
@@ -43,8 +40,6 @@ import { AuthMiddleware } from 'src/auth/middleware/auth.middleware';
     ConferenceModule,
     AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Comment } from 'src/database/comment.entity';
-import { CreateCommentDto } from 'src/dto/comment.dto';
+import { CreateCommentDto, UpdateCommentDto } from 'src/dto/comment.dto';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -12,7 +12,14 @@ export class CommentsService {
   ) {}
   async getByConferenceId(id: number) {
     const comments = await this.commentsRepository.find({
-      where: { conferenceId: id, isDeleted: false },
+      where: { conferenceId: id, isDeleted: false || null },
+    });
+    return comments;
+  }
+
+  async getById(id: number) {
+    const comments = await this.commentsRepository.findOne({
+      where: { id, isDeleted: false || null },
     });
     return comments;
   }
@@ -28,17 +35,23 @@ export class CommentsService {
     }
   }
 
-  async update(id: number) {
-    const comments = await this.commentsRepository.find({
-      where: { id },
-    });
-    return comments;
+  async update(details: UpdateCommentDto) {
+    try {
+      const comment = await this.getById(details.id);
+
+      return await this.commentsRepository.save({
+        ...comment,
+        ...details,
+      });
+    } catch (error) {
+      throw new Error(`Комментарий не был обновлен. Ошибка ${String(error)}`);
+    }
   }
 
   async delete(id: number) {
-    const comments = await this.commentsRepository.find({
-      where: { conferenceId: id },
-    });
-    return comments;
+    const comment = await this.getById(id);
+    comment.isDeleted = true;
+
+    return await this.commentsRepository.save(comment);
   }
 }
