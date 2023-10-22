@@ -18,12 +18,15 @@ export class CreateUserDto {
  * Модель DTO для данных на обновление
  */
 export class UpdateUserDto {
-  constructor(user: any) {
-    this.email = user.email;
-    this.info = user.info;
+  constructor() {}
+  static from(user: any) {
+    const object = new UpdateUserDto();
+    object.email = user.email;
+    object.info = user.info;
     // this.role = user.role;
-    this.picture = user.picture;
-    this.name = user.name;
+    object.picture = user.picture;
+    object.name = user.name;
+    return object;
   }
 
   @IsString()

@@ -15,7 +15,8 @@ export class BaseEntity extends BaseOrmEntity {
   @Exclude()
   @Column({
     type: 'boolean',
-    nullable: true,
+    nullable: false,
+    default: true,
     name: 'IsDeleted',
     select: false,
   })

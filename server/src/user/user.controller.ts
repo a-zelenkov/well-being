@@ -34,10 +34,8 @@ export class UserController {
   @Put()
   async update(@Req() req, @Body() userModel: UpdateUserDto) {
     try {
-      console.log(userModel);
       if (req.user.email != userModel.email)
         return { msg: 'Нельзя изменить email' };
-      console.log(userModel);
       return new OutputUserDto(await this.userService.update(userModel));
     } catch (Ex) {
       return { error: Ex };

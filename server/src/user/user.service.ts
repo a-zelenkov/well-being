@@ -17,15 +17,16 @@ export class UserService {
 
   async getById(id: number) {
     const user = await this.usersRepository.findOne({
-      where: { id, isDeleted: false || null },
+      where: { id, isDeleted: false || !null },
     });
     return user;
   }
 
   async getByEmail(email: string) {
     const user = await this.usersRepository.findOne({
-      where: { email, isDeleted: false || null },
+      where: { email },
     });
+    if (user.isDeleted) return null;
     return user;
   }
 
@@ -43,7 +44,6 @@ export class UserService {
   async update(details: UpdateUserDto) {
     try {
       const user = await this.getByEmail(details.email);
-
       return await this.usersRepository.save({
         ...user,
         ...details,

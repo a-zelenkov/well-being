@@ -25,7 +25,6 @@ export class AuthMiddleware implements NestMiddleware {
       );
 
     const updatedJwtPayload = this.authService.decodeToken(accessToken);
-
     const user = await this.userService.getByEmail(updatedJwtPayload.email);
     if (!user) {
       throw new HttpException(
@@ -34,8 +33,7 @@ export class AuthMiddleware implements NestMiddleware {
       );
     }
     req.user = { ...user, ...updatedJwtPayload };
-
-    await this.userService.update(new UpdateUserDto(req.user));
+    await this.userService.update(UpdateUserDto.from(req.user));
     next();
   }
 }
